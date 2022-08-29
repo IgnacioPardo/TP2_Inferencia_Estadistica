@@ -5,9 +5,7 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 
-1\. Implemente funciones `est1` y `est2` que tengan por argumento un conjunto de datos
-$(x_1, . . . , x_n)$ y devuelva el valor de la estimación $\hat\theta_n(x_1, . . . , x_n)$ y $\tilde\theta_n(x_1, . . . , x_n)$, para
-los estimadores definidos en (1), respectivamente.
+1\. Implemente funciones `est1` y `est2` que tengan por argumento un conjunto de datos $(x_1, . . . , x_n)$ y devuelva el valor de la estimación $\hat\theta_n(x_1, . . . , x_n)$ y $\tilde\theta_n(x_1, . . . , x_n)$, para los estimadores definidos en (1), respectivamente.
 
 ```{r}
 
@@ -32,7 +30,7 @@ est1(vals)
 est2(vals)
 ```
 
-a) Calcule el valor de los estimadores `est1` y `est2` en los datos
+a)  Calcule el valor de los estimadores `est1` y `est2` en los datos
 
 ```{r}
 vals_2 = c(1.17, 1.75, 0.28, 2.56, 2.36, 0.36, 1.82, 0.24, 1.17, 1.86)
@@ -44,7 +42,7 @@ est1(vals_2)
 est2(vals_2)
 ```
 
-b) Calcule el valor de los estimadores `est1` y `est2` en los datos
+b)  Calcule el valor de los estimadores `est1` y `est2` en los datos
 
 ```{r}
 vals_3 = c(0.66, 0.07, 0.62, 0.65, 1.33, 0.40, 1.17, 1.11, 2.01, 2.98)
@@ -56,12 +54,26 @@ est1(vals_3)
 est2(vals_3)
 ```
 
-2\. Realice un histograma para estimar la distribución de $\hat\theta_n$ para $n = 5$ en base a
-`Nrep = 10000` replicaciones. Repita para $n = 30$ y $n = 50$
+2\. Realice un histograma para estimar la distribución de $\hat\theta_n$ para $n = 5$ en base a `Nrep = 10000` replicaciones. Repita para $n = 30$ y $n = 50$
 
-a) Grafique los tres histogramas juntos, uno debajo del otro.
-b) ¿Qué puede decir de la distribución de $\hat\theta_n$ a medida que $n$ aumenta?
-c) Para cada n, ¿diría que es aproximadamente normal?
+a)  Grafique los tres histogramas juntos, uno debajo del otro.
+
+    ```{r}
+    par(mfrow=c(1, 3))
+    hist(n5_est1, probability = TRUE, col="darkmagenta")
+
+    hist(n30_est1, probability = TRUE, col="darkmagenta")
+
+    hist(n50_est1, probability = TRUE, col="darkmagenta")
+    ```
+
+b)  ¿Qué puede decir de la distribución de $\hat\theta_n$ a medida que $n$ aumenta?
+
+    La distribucion se asemeja a una distribucion normal y a medida que n aumenta, la varianza es mas chica y como consecuencia la campana se afina
+
+c)  Para cada n, ¿diría que es aproximadamente normal?
+
+    Si
 
 3\. Repita el ítem 2 para $\tilde\theta_n$
 
@@ -82,9 +94,11 @@ n50_est1 = replicate(Nrep, est1(runif(n50, 0, t)))
 n50_est2 = replicate(Nrep, est2(runif(n50, 0, t)))
 ```
 
-4\. Grafique los 6 histogramas (los tres de $\hat\theta_n$ ás los tres de $\tilde\theta_n$) juntos dispuestos en
-2 filas y 3 columnas, una columna por cada n y una fila por cada estimador. Para
-cada n, ¿qué estimador elegiría? ¿por qué?
+b\. Se puede observar que a medida que n aumenta, la densidad aumenta alrededor de 3
+
+c\. En este caso no
+
+4\. Grafique los 6 histogramas (los tres de $\hat\theta_n$ ás los tres de $\tilde\theta_n$) juntos dispuestos en 2 filas y 3 columnas, una columna por cada n y una fila por cada estimador. Para cada n, ¿qué estimador elegiría? ¿por qué?
 
 ```{r}
 par(mfrow=c(3, 2))
@@ -109,3 +123,5 @@ lines(density(n50_est2), col="magenta", lwd=2)
 
 par(mfrow=c(1, 1))
 ```
+
+Para cada n elegiriamos el estimador $\tilde\theta_n$ ya que dado a que tiene menor varianza, la densidad se concentra en 3 y por lo tanto el estimador es mas certero
